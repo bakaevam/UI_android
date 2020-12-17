@@ -28,7 +28,7 @@
             android:gravity="center_horizontal"
             android:text="@string/title_text"
             android:textColor="#F1370F"
-            android:textSize="32sp"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <EditText
@@ -41,7 +41,7 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="470dp"
+            android:layout_height="200dp"
             android:visibility="visible"
             tools:visibility="visible">
 
@@ -49,16 +49,16 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:visibility="invisible"
                 app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
             <TextView
                 android:id="@+id/list"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="32dp" />
+                android:gravity="center"
+                android:textSize="22sp" />
         </FrameLayout>
 
         <Button
