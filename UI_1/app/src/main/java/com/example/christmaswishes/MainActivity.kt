@@ -2,17 +2,14 @@ package com.example.christmaswishes
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isInvisible
 
 class MainActivity : AppCompatActivity() {
     lateinit var editText: EditText
     lateinit var img: ImageView
-    lateinit var list: TextView
+    lateinit var listTextViews: LinearLayout
     lateinit var title_text: TextView
     lateinit var button: Button
     lateinit var button_clear: Button
@@ -31,24 +28,15 @@ class MainActivity : AppCompatActivity() {
 
         editText = findViewById(R.id.edit_text)
         img = findViewById(R.id.imageView)
-        list = findViewById(R.id.list)
         title_text = findViewById(R.id.textView)
         button = findViewById(R.id.button)
         button_clear = findViewById(R.id.button_clear)
-
-        list.text = """
-            Socks
-            Sweets
-            Christmas Tree
-            Candles
-            Fireworks
-            Mandarins
-        """
+        listTextViews = findViewById(R.id.linearLayout)
 
         button.setOnClickListener {
             if (editText.text.isNotEmpty()) {
+                listTextViews.isInvisible = true
                 Log.d(TAG, "Repeat button")
-                list.isInvisible = true
                 img.isInvisible = false
                 isButtonPressed = true
 
@@ -63,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                     "mandarins" -> img.setImageResource(R.drawable.mandarins)
                     else -> {
                         img.isInvisible = true
-                        list.isInvisible = false
                     }
                 }
                 title_text.text = "I want $fromEditText"
@@ -75,10 +62,11 @@ class MainActivity : AppCompatActivity() {
         button_clear.setOnClickListener {
             title_text.text = "I want ..."
             button.isEnabled = true
+            listTextViews.isInvisible = false
             it.isEnabled = false
             editText.text.clear()
             img.isInvisible = true
-            list.isInvisible = false
+            isButtonPressed = false
         }
     }
 
@@ -91,7 +79,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun restoreImage(text: String) {
         Log.d(TAG, "restore Image")
-        list.isInvisible = true
+        listTextViews.isInvisible = true
         img.isInvisible = false
 
         when (text.toLowerCase()) {
@@ -103,10 +91,11 @@ class MainActivity : AppCompatActivity() {
             "mandarins" -> img.setImageResource(R.drawable.mandarins)
             else -> {
                 img.isInvisible = true
-                list.isInvisible = false
             }
         }
-        isButtonPressed = false
+        button.isEnabled = false
+        button_clear.isEnabled = true
+        isButtonPressed = true
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {

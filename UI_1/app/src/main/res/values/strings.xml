@@ -6,4 +6,11 @@
     <string name="hint_edit_text">Choose smth</string>
     <string name="button_name">Show</string>
     <string name="button_clear_name">Clear</string>
+    <string name="socks_wish">Socks</string>
+    <string name="sweets_wish">Sweets</string>
+    <string name="candles_wish">Candles</string>
+    <string name="christmas_tree_wish">Christmas Tree</string>
+    <string name="fireworks_wish">Fireworks</string>
+    <string name="mandarins_wish">Mandarins</string>
+    <string name="show_button">Show</string>
 </resources>
