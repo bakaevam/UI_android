@@ -7,43 +7,39 @@
     tools:context=".MainActivity">
 
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="651dp"
-        app:layout_constraintBottom_toTopOf="@id/linear_layout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
-
     <LinearLayout
         android:id="@+id/linear_layout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="70dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/orange_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Orange"
-            android:background="#FF5722"/>
+            android:background="#FF5722"
+            android:text="Orange" />
 
         <Button
             android:id="@+id/blue_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Blue"
-            android:background="@color/purple_700"/>
+            android:background="@color/purple_700"
+            android:text="Blue" />
     </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:layout_width="match_parent"
+        android:layout_height="560dp"
+        app:layout_constraintBottom_toTopOf="@+id/linear_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

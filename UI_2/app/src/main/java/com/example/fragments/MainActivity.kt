@@ -26,10 +26,9 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().apply {
                 setReorderingAllowed(true)
                 add(R.id.fragmentContainerView, orangeFragment)
-                addToBackStack("orangeFragmentContainerView")
 
-                add(R.id.fragmentContainerView, blueFragment)
-                addToBackStack("blueFragmentContainerView")
+                //add(R.id.fragmentContainerView, blueFragment)
+                //addToBackStack("blueFragmentContainerView")
 
                 commit()
             }
