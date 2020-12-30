@@ -9,26 +9,31 @@ import androidx.fragment.app.Fragment
 import com.example.fragments.R
 import com.example.fragments.utils.ArgumentManager
 
-class BlueFragment: Fragment(R.layout.blue_fragment) {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.blue_fragment, container, false)
-        return view
-    }
+class BlueFragment : Fragment(R.layout.blue_fragment) {
+    lateinit var blueFragmentChild: ChildBlueFragment
+    val blue_child_tag = "blue child tag"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-       // super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
 
-        val blueFragmentChild = ChildBlueFragment()
-        childFragmentManager.beginTransaction().apply {
-            setReorderingAllowed(true)
-            add(R.id.blueFragmentContainerView, blueFragmentChild)
-            addToBackStack(null)
+        blueFragmentChild = ChildBlueFragment()
 
-            commit()
+
+        if (savedInstanceState != null) {
+            blueFragmentChild = childFragmentManager.getFragment(savedInstanceState, blue_child_tag) as ChildBlueFragment
+        } else if (savedInstanceState == null) {
+            childFragmentManager.beginTransaction().apply {
+                setReorderingAllowed(true)
+                add(R.id.blueFragmentContainerView, blueFragmentChild)
+                addToBackStack(null)
+
+                commit()
+            }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        childFragmentManager.putFragment(outState, blue_child_tag, blueFragmentChild)
     }
 }

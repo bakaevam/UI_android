@@ -9,23 +9,28 @@ import com.example.fragments.R
 
 
 class OrangeFragment : Fragment(R.layout.orange_fragment) {
+    val orange_child_tag = "orange child tag"
+    lateinit var orangeFragmentChild: ChildOrangeFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var orangeFragmentChild = ChildOrangeFragment()
-       /* childFragmentManager.beginTransaction().apply {
-            setReorderingAllowed(true)
-            add(R.id.orangeFragmentContainerView, orangeFragmentChild)
-            addToBackStack(null)
+        if(savedInstanceState != null) {
+            orangeFragmentChild = childFragmentManager.getFragment(savedInstanceState, orange_child_tag) as ChildOrangeFragment
+        } else if (savedInstanceState == null) {
+            orangeFragmentChild = ChildOrangeFragment()
+            childFragmentManager.beginTransaction().apply {
+                setReorderingAllowed(true)
+                add(R.id.orangeFragmentContainerView, orangeFragmentChild)
+                addToBackStack(null)
 
-            commit()
-        }*/
-
-        parentFragmentManager.beginTransaction().apply {
-            setReorderingAllowed(true)
-            add(R.id.fragmentContainerView, OrangeFragment())
-            commit()
+                commit()
+            }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        childFragmentManager.putFragment(outState, orange_child_tag, orangeFragmentChild)
     }
 }

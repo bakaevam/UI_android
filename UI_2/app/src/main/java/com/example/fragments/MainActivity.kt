@@ -11,6 +11,10 @@ import com.example.fragments.fragment.OrangeFragment
 class MainActivity : AppCompatActivity() {
     lateinit var orangeButton: Button
     lateinit var blueButton: Button
+    val orange_tag = "orange tag"
+    val blue_tag = "blue tag"
+    lateinit var blueFragment: BlueFragment
+    lateinit var orangeFragment: OrangeFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,16 +23,17 @@ class MainActivity : AppCompatActivity() {
         orangeButton = findViewById(R.id.orange_button)
         blueButton = findViewById(R.id.blue_button)
 
-        val orangeFragment = OrangeFragment()
-        val blueFragment = BlueFragment()
+        if (savedInstanceState != null) {
+            orangeFragment = supportFragmentManager.findFragmentByTag(orange_tag) as OrangeFragment
+            blueFragment = supportFragmentManager.findFragmentByTag(blue_tag) as BlueFragment
+        } else if (savedInstanceState == null) {
+            orangeFragment = OrangeFragment()
+            blueFragment = BlueFragment()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().apply {
+            supportFragmentManager.beginTransaction()?.apply {
                 setReorderingAllowed(true)
-                add(R.id.fragmentContainerView, orangeFragment)
-
-                //add(R.id.fragmentContainerView, blueFragment)
-                //addToBackStack("blueFragmentContainerView")
+                add(R.id.fragmentContainerView, orangeFragment, orange_tag)
+                add(R.id.fragmentContainerView, blueFragment, blue_tag)
 
                 commit()
             }
@@ -40,7 +45,6 @@ class MainActivity : AppCompatActivity() {
                 setPrimaryNavigationFragment(orangeFragment)
                 hide(blueFragment)
                 show(orangeFragment)
-                addToBackStack(null)
 
                 commit()
             }
@@ -52,10 +56,15 @@ class MainActivity : AppCompatActivity() {
                 setPrimaryNavigationFragment(blueFragment)
                 hide(orangeFragment)
                 show(blueFragment)
-                addToBackStack(null)
 
                 commit()
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        supportFragmentManager.putFragment(outState, "orange tag", orangeFragment)
+        supportFragmentManager.putFragment(outState, "blue tag", blueFragment)
     }
 }
